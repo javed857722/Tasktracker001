@@ -5,15 +5,28 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tasktracker001.data.Role
 
 @Composable
-fun AdminLoginScreen(navController: NavController, authViewModel: AuthViewModel) {
-    var email by remember { mutableStateOf("") }
+fun AdminLoginScreen(navController: NavController, userViewModel: UserViewModel) {
+    var emailOrUsername by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val loggedInUser by userViewModel.loggedInUser.collectAsState()
+    val loginError by userViewModel.loginError.collectAsState()
+
+    LaunchedEffect(loggedInUser) {
+        if (loggedInUser?.role == Role.ADMIN) {
+            navController.navigate("admin_panel") {
+                popUpTo("admin_login") { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -23,9 +36,9 @@ fun AdminLoginScreen(navController: NavController, authViewModel: AuthViewModel)
         Text("Admin Login")
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") }
+            value = emailOrUsername,
+            onValueChange = { emailOrUsername = it },
+            label = { Text("Email or Username") }
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
@@ -33,8 +46,11 @@ fun AdminLoginScreen(navController: NavController, authViewModel: AuthViewModel)
             onValueChange = { password = it },
             label = { Text("Password") }
         )
+        if (loginError != null) {
+            Text(text = loginError!!, color = androidx.compose.ui.graphics.Color.Red, modifier = Modifier.padding(vertical = 8.dp))
+        }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { authViewModel.login(email, password) }) {
+        Button(onClick = { userViewModel.login(emailOrUsername, password) }) {
             Text("Login")
         }
         Spacer(modifier = Modifier.height(8.dp))

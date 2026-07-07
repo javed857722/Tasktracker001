@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.tasktracker001.data.Role
 import com.example.tasktracker001.data.User
 import com.example.tasktracker001.data.UserRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.mindrot.jbcrypt.BCrypt
 
 class UserViewModel(private val repository: UserRepository) : ViewModel() {
@@ -20,23 +22,58 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     val allUsers: StateFlow<List<User>> = repository.getAllUsers()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun signUp(username: String, email: String, password: String, role: Role) {
+    private val _loginError = MutableStateFlow<String?>(null)
+    val loginError: StateFlow<String?> = _loginError
+
+    private val _signUpError = MutableStateFlow<String?>(null)
+    val signUpError: StateFlow<String?> = _signUpError
+
+    fun login(emailOrUsername: String, password: String) {
         viewModelScope.launch {
-            val hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt())
-            val user = User(username = username, email = email, passwordHash = hashedPassword, role = role)
-            repository.insert(user)
+            _loginError.value = null
+            val user = repository.getUserByEmail(emailOrUsername) ?: repository.getUserByUsername(emailOrUsername)
+            if (user != null) {
+                val isPasswordCorrect = withContext(Dispatchers.Default) {
+                    BCrypt.checkpw(password, user.passwordHash)
+                }
+                if (isPasswordCorrect) {
+                    _loggedInUser.value = user
+                } else {
+                    _loginError.value = "Incorrect password"
+                }
+            } else {
+                _loginError.value = "User not found"
+            }
         }
     }
 
-    fun login(username: String, password: String) {
+    fun signUp(username: String, email: String, password: String, role: Role = Role.USER) {
         viewModelScope.launch {
-            val user = repository.getUserByUsername(username)
-            if (user != null && BCrypt.checkpw(password, user.passwordHash)) {
-                _loggedInUser.value = user
-            } else {
-                // Handle failed login
+            _signUpError.value = null
+            // Check if user already exists
+            if (repository.getUserByEmail(email) != null || repository.getUserByUsername(username) != null) {
+                _signUpError.value = "User already exists"
+                return@launch
             }
+
+            val hashedPassword = withContext(Dispatchers.Default) {
+                BCrypt.hashpw(password, BCrypt.gensalt())
+            }
+            val user = User(
+                username = username, 
+                email = email, 
+                passwordHash = hashedPassword, 
+                role = role,
+                isAdmin = (role == Role.ADMIN)
+            )
+            repository.insert(user)
+            _loggedInUser.value = user // Log in immediately after sign up
         }
+    }
+
+    fun clearErrors() {
+        _loginError.value = null
+        _signUpError.value = null
     }
 
     fun logout() {

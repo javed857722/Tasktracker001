@@ -10,5 +10,6 @@ data class User(
     val username: String,
     val email: String,
     val passwordHash: String,
-    val role: Role = Role.USER
+    val role: Role = Role.USER,
+    val isAdmin: Boolean = false
 )

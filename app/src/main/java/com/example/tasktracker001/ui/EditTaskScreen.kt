@@ -63,9 +63,9 @@ fun EditTaskScreen(navController: NavController, taskViewModel: TaskViewModel, u
 
     val datePickerDialog = DatePickerDialog(
         context,
-        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+        { _: DatePicker, pickedYear: Int, pickedMonth: Int, pickedDayOfMonth: Int ->
             val selectedDate = Calendar.getInstance()
-            selectedDate.set(year, month, dayOfMonth)
+            selectedDate.set(pickedYear, pickedMonth, pickedDayOfMonth)
             dueDate = selectedDate.timeInMillis
         },
         year, month, day

@@ -23,7 +23,6 @@ import com.example.tasktracker001.ui.AdminSignUpScreen
 import com.example.tasktracker001.ui.AdminTaskOversightScreen
 import com.example.tasktracker001.ui.AdminUserManagementScreen
 import com.example.tasktracker001.ui.AnalyticsScreen
-import com.example.tasktracker001.ui.AuthViewModel
 import com.example.tasktracker001.ui.CalendarScreen
 import com.example.tasktracker001.ui.CreateTaskScreen
 import com.example.tasktracker001.ui.DashboardScreen
@@ -48,12 +47,13 @@ fun NavGraph() {
     val navController = rememberNavController()
     val context = LocalContext.current
     val application = context.applicationContext as Application
-    val database = TaskDatabase.get(context)
+
+    val database = remember { TaskDatabase.get(context) }
     val userRepository = remember { UserRepository(database.userDao()) }
     val taskRepository = remember { TaskRepository(database.taskDao()) }
     val projectRepository = remember { ProjectRepository(database.projectDao()) }
     val activityLogRepository = remember { ActivityLogRepository(database.activityLogDao()) }
-    val authViewModel: AuthViewModel = viewModel()
+
     val userViewModel: UserViewModel = viewModel(factory = UserViewModelFactory(userRepository))
     val projectViewModel: ProjectViewModel = viewModel(factory = ProjectViewModelFactory(projectRepository))
     val taskViewModel: TaskViewModel = viewModel(
@@ -65,49 +65,21 @@ fun NavGraph() {
         )
     )
 
-    val loggedInUser = authViewModel.user.collectAsState().value
+    val loggedInUser = userViewModel.loggedInUser.collectAsState().value
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") {
-            if (loggedInUser != null) {
-                if (loggedInUser.role == Role.ADMIN) {
-                    navController.navigate("admin_panel") { popUpTo("login") { inclusive = true } }
-                } else {
-                    navController.navigate("dashboard") { popUpTo("login") { inclusive = true } }
-                }
-            } else {
-                LoginScreen(navController, authViewModel)
-            }
+            LoginScreen(navController, userViewModel)
         }
         composable("signup") {
-            if (loggedInUser != null) {
-                navController.navigate("dashboard") { popUpTo("signup") { inclusive = true } }
-            } else {
-                SignUpScreen(navController, authViewModel)
-            }
+            SignUpScreen(navController, userViewModel)
         }
         composable("forgot_password") { ForgotPasswordScreen() }
         composable("admin_login") {
-            if (loggedInUser != null) {
-                if (loggedInUser.role == Role.ADMIN) {
-                    navController.navigate("admin_panel") { popUpTo("admin_login") { inclusive = true } }
-                } else {
-                    navController.navigate("dashboard") { popUpTo("admin_login") { inclusive = true } }
-                }
-            } else {
-                AdminLoginScreen(navController, authViewModel)
-            }
+            AdminLoginScreen(navController, userViewModel)
         }
         composable("admin_signup") {
-            if (loggedInUser != null) {
-                if (loggedInUser.role == Role.ADMIN) {
-                    navController.navigate("admin_panel") { popUpTo("admin_signup") { inclusive = true } }
-                } else {
-                    navController.navigate("dashboard") { popUpTo("admin_signup") { inclusive = true } }
-                }
-            } else {
-                AdminSignUpScreen(navController, authViewModel)
-            }
+            AdminSignUpScreen(navController, userViewModel)
         }
         composable("dashboard") { DashboardScreen(navController, userViewModel, taskViewModel) }
         composable("create_task") { CreateTaskScreen(navController, userViewModel, taskViewModel) }

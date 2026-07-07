@@ -13,19 +13,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tasktracker001">
+        android:theme="@style/Theme.JavedIqbalTaskTracker">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Tasktracker001">
+            android:theme="@android:style/Theme.Material.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".util.NotificationReceiver" />
+        <receiver android:name=".util.NotificationReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

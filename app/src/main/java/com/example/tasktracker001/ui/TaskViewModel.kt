@@ -29,15 +29,17 @@ class TaskViewModel(application: Application, private val taskRepository: TaskRe
     fun addTask(title: String, description: String, dueDate: Long?, priority: Priority, assignedToUserId: Int?, projectId: Int?, attachments: List<String>, userId: Int, username: String) {
         viewModelScope.launch {
             val task = Task(title = title, description = description, dueDate = dueDate, priority = priority, assignedToUserId = assignedToUserId, projectId = projectId, attachments = attachments)
-            taskRepository.insert(task)
-            task.dueDate?.let { 
-                scheduleTaskReminder(getApplication(), task.id, task.title, it)
+            val generatedId = taskRepository.insert(task).toInt()
+            val taskWithId = task.copy(id = generatedId)
+            
+            taskWithId.dueDate?.let { 
+                scheduleTaskReminder(getApplication(), taskWithId.id, taskWithId.title, it)
             }
-            addActivityLog(task.id, userId, username, "created this task")
+            addActivityLog(taskWithId.id, userId, username, "created this task")
             assignedToUserId?.let {
                 val user = userRepository.getUserById(it)
                 user?.let {
-                    showNotification(getApplication(), "You have been assigned a new task: ${task.title}", task.id)
+                    showNotification(getApplication(), "You have been assigned a new task: ${taskWithId.title}", taskWithId.id)
                 }
             }
         }

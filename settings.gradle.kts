@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Tasktracker001"
+rootProject.name = "Javed Iqbal Task Tracker"
 include(":app")

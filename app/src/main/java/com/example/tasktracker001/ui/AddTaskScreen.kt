@@ -10,7 +10,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -55,9 +55,9 @@ fun AddTaskScreen(navController: NavController, taskViewModel: TaskViewModel, us
 
     val datePickerDialog = DatePickerDialog(
         context,
-        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+        { _: DatePicker, pickedYear: Int, pickedMonth: Int, pickedDayOfMonth: Int ->
             val selectedDate = Calendar.getInstance()
-            selectedDate.set(year, month, dayOfMonth)
+            selectedDate.set(pickedYear, pickedMonth, pickedDayOfMonth)
             dueDate = selectedDate.timeInMillis
         },
         year, month, day

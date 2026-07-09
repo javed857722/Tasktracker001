@@ -27,6 +27,10 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
     val loggedInUser by userViewModel.loggedInUser.collectAsState()
     val signUpError by userViewModel.signUpError.collectAsState()
 
+    // Validation logic
+    val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    val canSignUp = username.isNotBlank() && isEmailValid && password.length >= 6
+
     LaunchedEffect(loggedInUser) {
         if (loggedInUser != null) {
             navController.navigate("dashboard") {
@@ -73,14 +77,22 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                         onValueChange = { username = it },
                         label = { Text("Username") },
                         leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                        singleLine = true
                     )
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("Email") },
                         leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+                        isError = email.isNotEmpty() && !isEmailValid,
+                        supportingText = {
+                            if (email.isNotEmpty() && !isEmailValid) {
+                                Text("Enter a valid email address")
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                        singleLine = true
                     )
                     OutlinedTextField(
                         value = password,
@@ -88,7 +100,13 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
                         label = { Text("Password") },
                         leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                         visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                        supportingText = {
+                            if (password.isNotEmpty() && password.length < 6) {
+                                Text("Password must be at least 6 characters")
+                            }
+                        },
+                        singleLine = true
                     )
 
                     if (signUpError != null) {
@@ -101,6 +119,7 @@ fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
 
                     Button(
                         onClick = { userViewModel.signUp(username, email, password) },
+                        enabled = canSignUp,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Sign Up")

@@ -189,11 +189,15 @@ fun AddTaskScreen(navController: NavController, taskViewModel: TaskViewModel, us
         }
         Button(
             onClick = {
-                val finalAssignedToUserId = if (loggedInUser?.role == Role.USER) loggedInUser?.id else assignedToUserId
-                loggedInUser?.let {
-                    taskViewModel.addTask(title, description, dueDate, priority, finalAssignedToUserId, projectId, attachments, it.id, it.username)
+                if (title.isBlank()) {
+                    Toast.makeText(context, "Title cannot be empty", Toast.LENGTH_SHORT).show()
+                } else {
+                    val finalAssignedToUserId = if (loggedInUser?.role == Role.USER) loggedInUser?.id else assignedToUserId
+                    loggedInUser?.let {
+                        taskViewModel.addTask(title, description, dueDate, priority, finalAssignedToUserId, projectId, attachments, it.id, it.username)
+                    }
+                    navController.popBackStack()
                 }
-                navController.popBackStack()
             },
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
         ) {

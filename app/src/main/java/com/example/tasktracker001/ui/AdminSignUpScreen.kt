@@ -21,6 +21,10 @@ fun AdminSignUpScreen(navController: NavController, userViewModel: UserViewModel
     val loggedInUser by userViewModel.loggedInUser.collectAsState()
     val signUpError by userViewModel.signUpError.collectAsState()
 
+    // Validation logic
+    val isEmailValid = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    val canSignUp = username.isNotBlank() && isEmailValid && password.length >= 6
+
     LaunchedEffect(loggedInUser) {
         if (loggedInUser?.role == Role.ADMIN) {
             navController.navigate("admin_panel") {
@@ -30,34 +34,66 @@ fun AdminSignUpScreen(navController: NavController, userViewModel: UserViewModel
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Admin Sign Up")
-        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Admin Sign Up",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Username") }
+            label = { Text("Username") },
+            modifier = Modifier.fillMaxWidth(0.8f),
+            singleLine = true
         )
         Spacer(modifier = Modifier.height(8.dp))
+        
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") }
+            label = { Text("Email") },
+            isError = email.isNotEmpty() && !isEmailValid,
+            supportingText = {
+                if (email.isNotEmpty() && !isEmailValid) {
+                    Text("Enter a valid email address")
+                }
+            },
+            modifier = Modifier.fillMaxWidth(0.8f),
+            singleLine = true
         )
         Spacer(modifier = Modifier.height(8.dp))
+        
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            modifier = Modifier.fillMaxWidth(0.8f),
+            visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+            singleLine = true
         )
+        
         if (signUpError != null) {
-            Text(text = signUpError!!, color = androidx.compose.ui.graphics.Color.Red, modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = signUpError!!,
+                color = androidx.compose.ui.graphics.Color.Red,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { userViewModel.signUp(username, email, password, Role.ADMIN) }) {
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        Button(
+            onClick = { userViewModel.signUp(username, email, password, Role.ADMIN) },
+            enabled = canSignUp,
+            modifier = Modifier.fillMaxWidth(0.8f)
+        ) {
             Text("Sign Up")
         }
     }

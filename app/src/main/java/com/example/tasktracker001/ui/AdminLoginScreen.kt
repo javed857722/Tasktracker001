@@ -29,33 +29,59 @@ fun AdminLoginScreen(navController: NavController, userViewModel: UserViewModel)
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Admin Login")
-        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Admin Login",
+            style = androidx.compose.material3.MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        
         OutlinedTextField(
             value = emailOrUsername,
             onValueChange = { emailOrUsername = it },
-            label = { Text("Email or Username") }
+            label = { Text("Email or Username") },
+            modifier = Modifier.fillMaxWidth(0.8f),
+            singleLine = true
         )
         Spacer(modifier = Modifier.height(8.dp))
+        
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            modifier = Modifier.fillMaxWidth(0.8f),
+            visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+            singleLine = true
         )
+        
         if (loginError != null) {
-            Text(text = loginError!!, color = androidx.compose.ui.graphics.Color.Red, modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = loginError!!,
+                color = androidx.compose.ui.graphics.Color.Red,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
+        
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { userViewModel.login(emailOrUsername, password) }) {
+        
+        Button(
+            onClick = { userViewModel.login(emailOrUsername, password) },
+            modifier = Modifier.fillMaxWidth(0.8f)
+        ) {
             Text("Login")
         }
+        
         Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { navController.navigate("admin_signup") }) {
-            Text("Sign Up")
+        
+        androidx.compose.material3.TextButton(
+            onClick = { navController.navigate("admin_signup") }
+        ) {
+            Text("Don't have an admin account? Sign Up")
         }
     }
 }

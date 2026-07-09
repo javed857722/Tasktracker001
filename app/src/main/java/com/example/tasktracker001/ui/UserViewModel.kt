@@ -14,6 +14,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.mindrot.jbcrypt.BCrypt
 
+/**
+ * ViewModel for managing user-related data, authentication, and profiles.
+ *
+ * @property repository The repository for user data operations.
+ */
 class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _loggedInUser = MutableStateFlow<User?>(null)

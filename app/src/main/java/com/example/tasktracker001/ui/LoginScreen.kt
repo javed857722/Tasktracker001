@@ -17,6 +17,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tasktracker001.R
 
+/**
+ * Composable representing the User Login screen.
+ * Allows users to authenticate using their email or username and password.
+ */
 @Composable
 fun LoginScreen(navController: NavController, userViewModel: UserViewModel) {
     var emailOrUsername by remember { mutableStateOf("") }

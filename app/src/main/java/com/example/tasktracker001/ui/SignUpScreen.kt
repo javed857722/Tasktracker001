@@ -18,6 +18,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tasktracker001.R
 
+/**
+ * Composable function that represents the Sign Up screen of the application.
+ *
+ * This screen allows new users to create an account by providing a username, email, and password.
+ * It performs basic validation on the input fields and displays error messages if necessary.
+ *
+ * @param navController The [NavController] used for navigation between screens.
+ * @param userViewModel The [UserViewModel] that handles user-related data and logic.
+ */
 @Composable
 fun SignUpScreen(navController: NavController, userViewModel: UserViewModel) {
     var username by remember { mutableStateOf("") }

@@ -19,6 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.tasktracker001.data.Priority
 
+/**
+ * A composable component that provides filtering options for the task list.
+ * Users can filter tasks by their completion status and priority.
+ *
+ * @param onFilterChanged Callback invoked when any filter criteria changes.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskFilter(

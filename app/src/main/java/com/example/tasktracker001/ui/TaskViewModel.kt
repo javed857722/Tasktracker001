@@ -17,6 +17,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing task-related data and operations.
+ *
+ * @property taskRepository Repository for task data operations.
+ * @property activityLogRepository Repository for logging user activities.
+ * @property userRepository Repository for user-related queries.
+ */
 class TaskViewModel(application: Application, private val taskRepository: TaskRepository, private val activityLogRepository: ActivityLogRepository, private val userRepository: UserRepository) : AndroidViewModel(application) {
 
     val tasks: StateFlow<List<Task>> = taskRepository.getAllTasks()

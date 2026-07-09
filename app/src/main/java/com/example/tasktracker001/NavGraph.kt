@@ -42,6 +42,13 @@ import com.example.tasktracker001.ui.TaskViewModelFactory
 import com.example.tasktracker001.ui.UserViewModel
 import com.example.tasktracker001.ui.UserViewModelFactory
 
+/**
+ * Composable function that defines the navigation graph for the application.
+ *
+ * It sets up the [NavHost] and defines various composable destinations, including
+ * screens for login, signup, dashboard, task details, analytics, and admin panels.
+ * It also manages the initialization of ViewModels using their respective factories.
+ */
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()

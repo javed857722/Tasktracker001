@@ -8,14 +8,23 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+/**
+ * The Room database for the Task Tracker application.
+ * Manages all entities including Tasks, Users, Projects, Comments, and Activity Logs.
+ */
 @Database(entities = [Task::class, User::class, Project::class, Comment::class, ActivityLog::class], version = 13)
 @TypeConverters(Converters::class)
 abstract class TaskDatabase : RoomDatabase() {
-
+    
+    /** Returns the DAO for Task operations. */
     abstract fun taskDao(): TaskDao
+    /** Returns the DAO for User operations. */
     abstract fun userDao(): UserDao
+    /** Returns the DAO for Project operations. */
     abstract fun projectDao(): ProjectDao
+    /** Returns the DAO for Comment operations. */
     abstract fun commentDao(): CommentDao
+    /** Returns the DAO for Activity Log operations. */
     abstract fun activityLogDao(): ActivityLogDao
 
     companion object {

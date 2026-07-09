@@ -7,6 +7,11 @@ import com.example.tasktracker001.data.CommentRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing comments on tasks.
+ *
+ * @property repository The repository for comment data operations.
+ */
 class CommentViewModel(private val repository: CommentRepository) : ViewModel() {
 
     fun getCommentsForTask(taskId: Int): Flow<List<Comment>> {

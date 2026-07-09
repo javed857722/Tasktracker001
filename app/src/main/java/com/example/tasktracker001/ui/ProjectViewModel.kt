@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing project-related data and operations.
+ *
+ * @property repository The repository for project data operations.
+ */
 class ProjectViewModel(private val repository: ProjectRepository) : ViewModel() {
 
     val projects: StateFlow<List<Project>> = repository.getAllProjects()

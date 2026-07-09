@@ -7,6 +7,11 @@ import com.example.tasktracker001.data.ActivityLogRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing and retrieving activity logs.
+ *
+ * @property repository The repository for activity log data operations.
+ */
 class ActivityLogViewModel(private val repository: ActivityLogRepository) : ViewModel() {
 
     fun getActivityLogsForTask(taskId: Int): Flow<List<ActivityLog>> {

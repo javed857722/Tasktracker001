@@ -26,6 +26,19 @@ import com.example.tasktracker001.data.Task
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
+/**
+ * Composable function that provides the Edit Task screen.
+ *
+ * This screen allows users to modify the details of an existing task.
+ * It pre-fills the input fields with the current task data and updates
+ * the task in the database upon user confirmation.
+ *
+ * @param navController The [NavController] used for navigation.
+ * @param taskViewModel The [TaskViewModel] used for fetching and updating the task.
+ * @param userViewModel The [UserViewModel] providing user context for the update.
+ * @param projectViewModel The [ProjectViewModel] providing project options.
+ * @param taskId The ID of the task to be edited.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreen(navController: NavController, taskViewModel: TaskViewModel, userViewModel: UserViewModel, projectViewModel: ProjectViewModel, taskId: Int) {

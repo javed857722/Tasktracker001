@@ -12,6 +12,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tasktracker001.data.Role
 
+/**
+ * Composable function that represents the Admin Sign Up screen.
+ *
+ * This screen allows users to create a new account with the [Role.ADMIN] role.
+ * It includes fields for username, email, and password, and performs validation
+ * before allowing the sign-up process to proceed.
+ *
+ * @param navController The [NavController] used for navigating between screens.
+ * @param userViewModel The [UserViewModel] that manages administrative user registration.
+ */
 @Composable
 fun AdminSignUpScreen(navController: NavController, userViewModel: UserViewModel) {
     var username by remember { mutableStateOf("") }

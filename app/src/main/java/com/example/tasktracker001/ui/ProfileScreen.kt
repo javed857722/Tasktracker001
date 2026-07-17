@@ -17,6 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+/**
+ * Composable function that displays the User Profile screen.
+ *
+ * This screen allows the logged-in user to view and update their profile information,
+ * including their username and email. It also displays their assigned role.
+ *
+ * @param navController The [NavController] used for navigation.
+ * @param userViewModel The [UserViewModel] that manages the user's profile data.
+ */
 @Composable
 fun ProfileScreen(navController: NavController, userViewModel: UserViewModel) {
     val loggedInUser by userViewModel.loggedInUser.collectAsState()

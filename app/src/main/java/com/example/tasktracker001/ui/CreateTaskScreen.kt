@@ -28,6 +28,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tasktracker001.data.Priority
 
+/**
+ * Composable function for the Create Task screen.
+ *
+ * This screen provides an interface for users to manually create new tasks.
+ * It includes features like task suggestions based on previous entries,
+ * and allows specifying task title, description, and priority level.
+ *
+ * @param navController The [NavController] used for managing app navigation.
+ * @param userViewModel The [UserViewModel] providing context for the logged-in user.
+ * @param taskViewModel The [TaskViewModel] used to persist the new task.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateTaskScreen(

@@ -33,6 +33,18 @@ import com.example.tasktracker001.data.Role
 import com.example.tasktracker001.util.NotificationReceiver
 import java.util.Calendar
 
+/**
+ * Composable function that provides a screen for creating a new task.
+ *
+ * It allows users to input task details such as title, description, due date,
+ * priority, and project association. Admin and Manager roles can also assign
+ * tasks to specific users.
+ *
+ * @param navController The [NavController] for navigating between screens.
+ * @param taskViewModel The [TaskViewModel] to handle task creation logic.
+ * @param userViewModel The [UserViewModel] to manage user data for assignments.
+ * @param projectViewModel The [ProjectViewModel] to manage project associations.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreen(navController: NavController, taskViewModel: TaskViewModel, userViewModel: UserViewModel, projectViewModel: ProjectViewModel) {

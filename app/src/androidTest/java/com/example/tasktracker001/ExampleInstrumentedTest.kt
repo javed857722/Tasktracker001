@@ -11,10 +11,16 @@ import org.junit.Assert.*
 /**
  * Instrumented test, which will execute on an Android device.
  *
+ * This test verifies that the application context is correctly retrieved and matches
+ * the expected package name.
+ *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+    /**
+     * Verifies that the app context is correct.
+     */
     @Test
     fun useAppContext() {
         // Context of the app under test.

@@ -16,6 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable function that represents the Forgot Password screen.
+ *
+ * This screen provides a simple interface for users to request a password reset.
+ * It takes an email address and simulates sending a reset link via a Toast message.
+ */
 @Composable
 fun ForgotPasswordScreen() {
     var email by remember { mutableStateOf("") }

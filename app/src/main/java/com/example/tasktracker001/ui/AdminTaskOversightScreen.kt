@@ -21,6 +21,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
+/**
+ * Composable function that represents the Admin Task Oversight screen.
+ *
+ * This screen provides administrators with a comprehensive view of all tasks
+ * within the system. It allows them to monitor task progress, priority,
+ * and completion status. Clicking on a task navigates to its detailed view.
+ *
+ * @param navController The [NavController] used for navigating to task details.
+ * @param taskViewModel The [TaskViewModel] that provides the list of all tasks.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminTaskOversightScreen(navController: NavController, taskViewModel: TaskViewModel) {

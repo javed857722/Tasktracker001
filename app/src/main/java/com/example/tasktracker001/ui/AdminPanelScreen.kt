@@ -17,6 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+/**
+ * Composable function that displays the Admin Panel screen.
+ *
+ * This screen serves as the central hub for administrative tasks, providing
+ * navigation to user management, task oversight, and project management.
+ * It also allows the admin to log out of the application.
+ *
+ * @param navController The [NavController] used for navigation to different admin sub-screens.
+ * @param userViewModel The [UserViewModel] used to handle the logout logic.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminPanelScreen(

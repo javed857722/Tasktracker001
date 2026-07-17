@@ -32,6 +32,16 @@ import java.time.YearMonth
 import java.time.format.TextStyle
 import java.util.Locale
 
+/**
+ * Composable function that displays the Calendar screen.
+ *
+ * This screen provides a month-view calendar using the Kizitonwose Calendar library.
+ * It highlights days that have tasks assigned with a red background.
+ * Users can navigate back to the previous screen using the top bar.
+ *
+ * @param navController The [NavController] used for navigation.
+ * @param taskViewModel The [TaskViewModel] that provides task data to be displayed on the calendar.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreen(navController: NavController, taskViewModel: TaskViewModel) {

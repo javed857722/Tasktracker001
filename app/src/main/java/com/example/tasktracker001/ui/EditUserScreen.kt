@@ -33,6 +33,17 @@ import androidx.navigation.NavController
 import com.example.tasktracker001.data.Role
 import com.example.tasktracker001.data.User
 
+/**
+ * Composable function that provides the Edit User screen for administrators.
+ *
+ * This screen allows administrators to modify a user's details, such as their
+ * username and role. It fetches the user's current information and updates
+ * it in the database upon user confirmation.
+ *
+ * @param navController The [NavController] used for screen navigation.
+ * @param userViewModel The [UserViewModel] that handles user data and updates.
+ * @param userId The unique identifier of the user to be edited.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditUserScreen(

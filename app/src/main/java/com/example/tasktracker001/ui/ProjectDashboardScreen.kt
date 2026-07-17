@@ -21,6 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+/**
+ * Composable function that displays the Project Dashboard screen.
+ *
+ * This screen allows users to view a list of all existing projects and navigate to their
+ * individual details. It also provides an interface to create new projects by
+ * specifying a name and description.
+ *
+ * @param navController The [NavController] used for navigating to project details.
+ * @param projectViewModel The [ProjectViewModel] that manages project-related data and operations.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectDashboardScreen(navController: NavController, projectViewModel: ProjectViewModel) {

@@ -20,6 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
+/**
+ * Composable function that displays the details of a specific project.
+ *
+ * This screen allows users to edit the project's name and description,
+ * delete the project entirely, and view a list of all tasks associated
+ * with this project. Clicking on a task navigates to its detail view.
+ *
+ * @param navController The [NavController] used for screen navigation.
+ * @param projectViewModel The [ProjectViewModel] that handles project updates and deletion.
+ * @param taskViewModel The [TaskViewModel] used to filter tasks belonging to this project.
+ * @param projectId The unique identifier of the project to be displayed.
+ */
 @Composable
 fun ProjectDetailScreen(
     navController: NavController,

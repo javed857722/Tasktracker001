@@ -12,6 +12,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tasktracker001.data.Role
 
+/**
+ * Composable function that represents the Admin Login screen.
+ *
+ * This screen provides a dedicated login interface for users with administrative privileges.
+ * It allows admins to authenticate using their email or username and password.
+ * Successful login redirects the admin to the Admin Panel.
+ *
+ * @param navController The [NavController] used for navigation.
+ * @param userViewModel The [UserViewModel] that handles the authentication logic.
+ */
 @Composable
 fun AdminLoginScreen(navController: NavController, userViewModel: UserViewModel) {
     var emailOrUsername by remember { mutableStateOf("") }

@@ -27,6 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tasktracker001.data.User
 
+/**
+ * Composable function that provides the User Management screen for administrators.
+ *
+ * This screen displays a list of all registered users and allows administrators to
+ * edit user details or delete users from the system.
+ *
+ * @param navController The [NavController] used for navigation to edit screens.
+ * @param userViewModel The [UserViewModel] that provides the list of users and management operations.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminUserManagementScreen(navController: NavController, userViewModel: UserViewModel) {

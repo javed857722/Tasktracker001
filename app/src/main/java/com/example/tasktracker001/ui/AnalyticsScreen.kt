@@ -30,6 +30,16 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+/**
+ * Composable function that displays the Analytics Dashboard.
+ *
+ * This screen provides visual insights into task data using charts.
+ * It features a Pie Chart showing the distribution of completed vs. pending tasks,
+ * and a Bar Chart showing the number of tasks completed per day.
+ *
+ * @param navController The [NavController] used for navigation.
+ * @param taskViewModel The [TaskViewModel] that provides the task data for analysis.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnalyticsScreen(navController: NavController, taskViewModel: TaskViewModel) {

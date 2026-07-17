@@ -47,6 +47,18 @@ import com.example.tasktracker001.data.Task
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+/**
+ * Composable function that represents the main Dashboard screen.
+ *
+ * This screen serves as the primary interface for users to manage their tasks.
+ * It features task filtering, searching, sorting, and displays summaries for 
+ * upcoming deadlines and completed tasks. Users can also navigate to other
+ * parts of the app like Analytics, Calendar, and Profile.
+ *
+ * @param navController The [NavController] for navigation between screens.
+ * @param userViewModel The [UserViewModel] for managing user authentication and state.
+ * @param taskViewModel The [TaskViewModel] for task operations and data retrieval.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(navController: NavController, userViewModel: UserViewModel, taskViewModel: TaskViewModel) {
